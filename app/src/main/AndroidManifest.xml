@@ -10,7 +10,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".modules.splash.SplashActivity">
+
+        <activity android:name=".modules.splash.SplashActivity"
+                  android:theme="@style/AppTheme.Splash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
