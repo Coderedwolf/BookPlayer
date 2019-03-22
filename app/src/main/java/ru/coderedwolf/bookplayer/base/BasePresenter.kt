@@ -3,7 +3,8 @@ package ru.coderedwolf.bookplayer.base
 import com.arellomobile.mvp.MvpPresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import ru.iway.iwayapp.base.BaseView
 import kotlin.coroutines.CoroutineContext
 
@@ -16,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
  */
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), CoroutineScope {
 
-    private val mJob = Job()
+    private val mJob = SupervisorJob()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + mJob
@@ -31,7 +32,7 @@ abstract class BasePresenter<V : BaseView> : MvpPresenter<V>(), CoroutineScope {
     final override fun onDestroy() {
         super.onDestroy()
         onViewDestroyed()
-        mJob.cancel()
+        mJob.cancelChildren()
     }
 
     /**

@@ -18,7 +18,8 @@ class BookPayerApplication : Application() {
 
     private fun buildComponent(): AppComponent {
         return DaggerAppComponent.builder()
-            .dataBaseModule(DataBaseModule(this))
+            .appModule(AppModule(this))
+            .dataBaseModule(DataBaseModule())
             .navigationModule(NavigationModule())
             .build()
     }

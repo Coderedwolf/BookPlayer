@@ -1,4 +1,4 @@
-package ru.iway.iwayapp.base
+package ru.coderedwolf.bookplayer.base
 
 interface LoadingView {
 
