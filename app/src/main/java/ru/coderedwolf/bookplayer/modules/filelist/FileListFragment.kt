@@ -48,9 +48,7 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.setTitle(R.string.file_list_fragment_title)
-        toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
-        toolbar.setNavigationOnClickListener { mFileListPresenter.onBackPressed() }
+        initToolbar()
         permissionButton.onClick { mFileListPresenter.onClickPermissionButton() }
         swipeRefreshLayout.setOnRefreshListener { mFileListPresenter.onRefreshList() }
         bookList.apply {
@@ -58,6 +56,12 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
             adapter = mAudioFileAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+    }
+
+    private fun initToolbar() {
+        toolbar.setTitle(R.string.file_list_fragment_title)
+        toolbar.setNavigationIcon(R.drawable.ic_back_arrow)
+        toolbar.setNavigationOnClickListener { mFileListPresenter.onBackPressed() }
     }
 
     override fun hideSwipeLoading() {
