@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BookPlayer</string>
+    <string name="label_empty_book_list">У вас пока нет книг в библиотеке</string>
+
+
+    <!--File list fragment-->
+    <string name="file_list_fragment_title">Треки на устройтве</string>
+    <string name="need_storage_permission">Для того, чтобы получить список аудиофайлов на устройстве, необходимо разрешение</string>
+    <string name="action_storage_permission">Дать разрешение</string>
+    <string name="need_go_to_settings">Нужно включить разрешение в настройках</string>
+    <string name="settings">Настройки</string>
 </resources>
