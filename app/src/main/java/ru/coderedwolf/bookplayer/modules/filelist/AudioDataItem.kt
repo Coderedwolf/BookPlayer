@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.item_file_list.view.*
 import ru.coderedwolf.bookplayer.R
 import ru.coderedwolf.bookplayer.domain.model.AudioData
 
-class AudioFileItem(private val audioData: AudioData) : Item() {
+class AudioFileItem(val audioData: AudioData) : Item() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         Glide.with(viewHolder.itemView)

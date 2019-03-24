@@ -5,7 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import androidx.fragment.app.Fragment
+import ru.coderedwolf.bookplayer.domain.model.AudioData
 import ru.coderedwolf.bookplayer.modules.booklist.BookListFragment
+import ru.coderedwolf.bookplayer.modules.booksave.BookSaveFragment
 import ru.coderedwolf.bookplayer.modules.filelist.FileListFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
@@ -28,5 +30,12 @@ object SettingScreen : SupportAppScreen() {
     override fun getActivityIntent(context: Context): Intent {
         return Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                 Uri.fromParts("package", context.packageName, null))
+    }
+}
+
+class BookSaveScreen(val audioData: AudioData) : SupportAppScreen() {
+
+    override fun getFragment(): Fragment {
+        return BookSaveFragment.newInstance(audioData)
     }
 }
