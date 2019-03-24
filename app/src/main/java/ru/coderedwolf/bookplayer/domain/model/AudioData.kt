@@ -1,12 +1,14 @@
 package ru.coderedwolf.bookplayer.domain.model
 
-import android.net.Uri
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-data class AudioFile(
+@Parcelize
+data class AudioData(
         val id: Long,
         val name: String,
         val author: String,
         val duration: Long,
         val filePath: String,
-        val imageUri: Uri
-)
+        val imageUri: String
+) : Parcelable
