@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import ru.coderedwolf.bookplayer.base.BasePresenter
 import ru.coderedwolf.bookplayer.managers.AudioFileManager
 import ru.coderedwolf.bookplayer.managers.PermissionManager
+import ru.coderedwolf.bookplayer.modules.BookSaveScreen
 import ru.coderedwolf.bookplayer.modules.SettingScreen
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -87,7 +88,7 @@ class FileListPresenter @Inject constructor(
         }
     }
 
-    fun onClickFile(item: AudioFileItem) {
-
+    fun onClickFile(item: AudioDataItem) {
+        router.navigateTo(BookSaveScreen(item.audioData))
     }
 }

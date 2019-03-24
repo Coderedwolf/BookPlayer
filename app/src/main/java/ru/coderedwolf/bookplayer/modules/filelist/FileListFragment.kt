@@ -32,7 +32,7 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
     @InjectPresenter
     lateinit var mFileListPresenter: FileListPresenter
 
-    private val mAudioFileAdapter = GroupAdapter<ViewHolder>()
+    private val mAudioDataAdapter = GroupAdapter<ViewHolder>()
 
     @ProvidePresenter
     fun provideBookListPresenter(): FileListPresenter {
@@ -53,11 +53,11 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
         swipeRefreshLayout.setOnRefreshListener { mFileListPresenter.onRefreshList() }
         bookList.apply {
             setHasFixedSize(true)
-            adapter = mAudioFileAdapter
+            adapter = mAudioDataAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        mAudioFileAdapter.setOnItemClickListener { item, _ ->
-            if (item is AudioFileItem) {
+        mAudioDataAdapter.setOnItemClickListener { item, _ ->
+            if (item is AudioDataItem) {
                 mFileListPresenter.onClickFile(item)
             }
         }
@@ -94,7 +94,7 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
     }
 
     override fun showFileList(list: List<AudioData>) {
-        mAudioFileAdapter.update(list.map { AudioFileItem(it) })
+        mAudioDataAdapter.update(list.map { AudioDataItem(it) })
     }
 
     override fun requestPermissionStorage() {

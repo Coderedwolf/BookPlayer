@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.item_file_list.view.*
 import ru.coderedwolf.bookplayer.R
 import ru.coderedwolf.bookplayer.domain.model.AudioData
 
-class AudioFileItem(val audioData: AudioData) : Item() {
+class AudioDataItem(val audioData: AudioData) : Item() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         Glide.with(viewHolder.itemView)
@@ -25,7 +25,7 @@ class AudioFileItem(val audioData: AudioData) : Item() {
         if (other?.layout != layout) {
             return false
         }
-        other as AudioFileItem
+        other as AudioDataItem
         return other.audioData.id == audioData.id
     }
 
@@ -33,7 +33,7 @@ class AudioFileItem(val audioData: AudioData) : Item() {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as AudioFileItem
+        other as AudioDataItem
 
         if (audioData.id == other.id && audioData.author == other.audioData.author
                 && audioData.filePath == other.audioData.filePath) {
