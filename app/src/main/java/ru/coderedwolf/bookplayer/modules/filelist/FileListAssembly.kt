@@ -16,5 +16,5 @@ interface FileListComponent {
 interface FileListModule {
 
     @LifeTimeScope
-    fun mainPresenter(fileListPresenter: FileListPresenter): FileListPresenter
+    fun fileListPresenter(fileListPresenter: FileListPresenter): FileListPresenter
 }

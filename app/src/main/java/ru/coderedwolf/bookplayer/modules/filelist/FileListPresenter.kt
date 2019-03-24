@@ -21,7 +21,7 @@ class FileListPresenter @Inject constructor(
 
     companion object {
 
-        private const val DELAY_FOR_SWIPE = 1000L
+        private const val DELAY_HIDE = 1000L
     }
 
     private var mGoToSetting = false
@@ -66,8 +66,11 @@ class FileListPresenter @Inject constructor(
 
     private fun updateAudioList() {
         launch {
+            viewState.showLoading()
             val list = withContext(IO) { audioFileManager.findAll() }
             viewState.showFileList(list)
+            delay(DELAY_HIDE)
+            viewState.hideLoading()
         }
     }
 
@@ -79,8 +82,12 @@ class FileListPresenter @Inject constructor(
         launch {
             val list = withContext(IO) { audioFileManager.findAll() }
             viewState.showFileList(list)
-            delay(DELAY_FOR_SWIPE)
+            delay(DELAY_HIDE)
             viewState.hideSwipeLoading()
         }
+    }
+
+    fun onClickFile(item: AudioFileItem) {
+
     }
 }

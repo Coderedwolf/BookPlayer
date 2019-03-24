@@ -17,7 +17,7 @@ import org.jetbrains.anko.onClick
 import ru.coderedwolf.bookplayer.BookPayerApplication
 import ru.coderedwolf.bookplayer.R
 import ru.coderedwolf.bookplayer.base.MvpAppCompatFragment
-import ru.coderedwolf.bookplayer.domain.model.AudioFile
+import ru.coderedwolf.bookplayer.domain.model.AudioData
 import ru.coderedwolf.bookplayer.modules.common.BackButtonListener
 
 class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListener {
@@ -56,6 +56,11 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
             adapter = mAudioFileAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+        mAudioFileAdapter.setOnItemClickListener { item, _ ->
+            if (item is AudioFileItem) {
+                mFileListPresenter.onClickFile(item)
+            }
+        }
     }
 
     private fun initToolbar() {
@@ -88,7 +93,7 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
         progressBar.visibility = View.GONE
     }
 
-    override fun showFileList(list: List<AudioFile>) {
+    override fun showFileList(list: List<AudioData>) {
         mAudioFileAdapter.update(list.map { AudioFileItem(it) })
     }
 
