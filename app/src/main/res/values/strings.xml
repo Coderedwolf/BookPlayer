@@ -8,5 +8,6 @@
     <string name="need_storage_permission">Для того, чтобы получить список аудиофайлов на устройстве, необходимо разрешение</string>
     <string name="action_storage_permission">Дать разрешение</string>
     <string name="need_go_to_settings">Нужно включить разрешение в настройках</string>
+    <string name="format_minutes">%d мин.</string>
     <string name="settings">Настройки</string>
 </resources>

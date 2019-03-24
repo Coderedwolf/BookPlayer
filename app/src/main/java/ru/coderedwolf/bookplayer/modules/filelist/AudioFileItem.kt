@@ -5,16 +5,18 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_file_list.view.*
 import ru.coderedwolf.bookplayer.R
-import ru.coderedwolf.bookplayer.domain.model.AudioFile
+import ru.coderedwolf.bookplayer.domain.model.AudioData
 
-class AudioFileItem(private val audioFile: AudioFile) : Item() {
+class AudioFileItem(private val audioData: AudioData) : Item() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         Glide.with(viewHolder.itemView)
-                .load(audioFile.imageUri)
+                .load(audioData.imageUri)
                 .into(viewHolder.itemView.audioImage)
-        viewHolder.itemView.audioFileName.text = audioFile.name
-        viewHolder.itemView.audioAuthor.text = audioFile.author
+        val durationMin = audioData.duration / 60_000
+        viewHolder.itemView.audioDuration.text = viewHolder.itemView.context.getString(R.string.format_minutes, durationMin)
+        viewHolder.itemView.audioFileName.text = audioData.name
+        viewHolder.itemView.audioAuthor.text = audioData.author
     }
 
     override fun getLayout() = R.layout.item_file_list
@@ -24,7 +26,7 @@ class AudioFileItem(private val audioFile: AudioFile) : Item() {
             return false
         }
         other as AudioFileItem
-        return other.audioFile.id == audioFile.id
+        return other.audioData.id == audioData.id
     }
 
     override fun equals(other: Any?): Boolean {
@@ -33,8 +35,8 @@ class AudioFileItem(private val audioFile: AudioFile) : Item() {
 
         other as AudioFileItem
 
-        if (audioFile.id == other.id && audioFile.author == other.audioFile.author
-                && audioFile.filePath == other.audioFile.filePath) {
+        if (audioData.id == other.id && audioData.author == other.audioData.author
+                && audioData.filePath == other.audioData.filePath) {
             return true
         }
 
@@ -42,6 +44,6 @@ class AudioFileItem(private val audioFile: AudioFile) : Item() {
     }
 
     override fun hashCode(): Int {
-        return audioFile.hashCode()
+        return audioData.hashCode()
     }
 }
