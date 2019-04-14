@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:elevation="4dp">
+
+        <androidx.appcompat.widget.Toolbar
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:layout_scrollFlags="scroll|enterAlways"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:indeterminate="true"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        <TextView
+                android:id="@+id/labelEmpty"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/label_empty_book_list"
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bookList"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="right"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_book_list"/>
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddBook"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_anchor="@+id/relativeLayout"
+            app:layout_anchorGravity="bottom|end|right"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

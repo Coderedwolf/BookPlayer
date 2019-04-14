@@ -1,10 +1,11 @@
 package ru.coderedwolf.bookplayer.modules.booklist
 
 import com.arellomobile.mvp.InjectViewState
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.coderedwolf.bookplayer.base.BasePresenter
 import ru.coderedwolf.bookplayer.domain.repositories.BookRepository
+import ru.coderedwolf.bookplayer.modules.FileListScreen
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -18,12 +19,17 @@ class BookListPresenter @Inject constructor(
         launch {
             viewState.showLoading()
 
-            val bookList = async(IO) {
-                bookRepository.findAll(10, 0)
+            val bookList = withContext(IO) { bookRepository.findAll(10, 0) }
+            if (bookList.isEmpty()) {
+                viewState.showEmptyLabel(true)
+            } else {
+                viewState.showBookList(bookList)
             }
-
-            viewState.showBookList(bookList.await())
             viewState.hideLoading()
         }
+    }
+
+    fun onClickAddBook() {
+        router.navigateTo(FileListScreen)
     }
 }
