@@ -11,7 +11,7 @@ import ru.coderedwolf.bookplayer.di.ApplicationComponent
 import ru.coderedwolf.bookplayer.di.DaggerApplicationComponent
 import javax.inject.Inject
 
-class BookPayerApplication : Application(), HasActivityInjector, HasServiceInjector {
+class BookPlayerApplication : Application(), HasActivityInjector, HasServiceInjector {
 
     @Inject
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
@@ -19,23 +19,18 @@ class BookPayerApplication : Application(), HasActivityInjector, HasServiceInjec
     @Inject
     lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
 
-    companion object {
-
-        @JvmStatic
-        lateinit var component: ApplicationComponent
-    }
-
     override fun onCreate() {
         super.onCreate()
-        component = buildComponent()
+        createAppComponent().inject(this)
     }
 
     override fun serviceInjector(): AndroidInjector<Service> = dispatchingServiceInjector
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingActivityInjector
 
-    private fun buildComponent(): ApplicationComponent {
+    private fun createAppComponent(): ApplicationComponent {
         return DaggerApplicationComponent.builder()
-            .build()
+                .context(this)
+                .build()
     }
 }

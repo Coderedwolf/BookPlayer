@@ -1,22 +1,36 @@
 package ru.coderedwolf.bookplayer.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
-import ru.coderedwolf.bookplayer.domain.repositories.BookRepository
-import ru.coderedwolf.bookplayer.managers.AudioFileManager
-import ru.coderedwolf.bookplayer.managers.PermissionManager
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
+import dagger.android.support.AndroidSupportInjectionModule
+import ru.coderedwolf.bookplayer.BookPlayerApplication
+import ru.coderedwolf.bookplayer.di.build.ActivityBuilderModule
+import ru.coderedwolf.bookplayer.di.build.FragmentBuilderModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, DataBaseModule::class, NavigationModule::class])
-interface AppComponent {
+@Component(
+        modules = [
+            AndroidSupportInjectionModule::class,
+            FragmentBuilderModule::class,
+            ManagersModule::class,
+            ActivityBuilderModule::class,
+            DataBaseModule::class,
+            NavigationModule::class,
+            RepositoryModule::class
+        ]
+)
+interface ApplicationComponent {
 
-    fun bookRepository(): BookRepository
+    @Component.Builder
+    interface Builder {
 
-    fun audioFileManager(): AudioFileManager
-    fun permissionManager(): PermissionManager
+        @BindsInstance
+        fun context(context: Context): Builder
 
-    fun router(): Router
-    fun navigatorHolder(): NavigatorHolder
+        fun build(): ApplicationComponent
+    }
+
+    fun inject(bookPlayerApplication: BookPlayerApplication)
 }

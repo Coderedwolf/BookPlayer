@@ -7,14 +7,14 @@ import dagger.Provides
 import ru.coderedwolf.bookplayer.domain.BookPlayerDataBase
 import javax.inject.Singleton
 
-@Module(includes = [AppModule::class])
+@Module
 class DataBaseModule {
 
     @Provides
     @Singleton
     fun bookPlayerDataBase(context: Context): BookPlayerDataBase {
         return Room.databaseBuilder(context, BookPlayerDataBase::class.java, "BookPlayerDataBase")
-            .build()
+                .build()
     }
 
     @Provides
