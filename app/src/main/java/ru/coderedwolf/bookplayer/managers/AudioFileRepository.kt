@@ -7,14 +7,17 @@ import android.net.Uri
 import android.provider.MediaStore
 import ru.coderedwolf.bookplayer.domain.model.AudioData
 import ru.coderedwolf.bookplayer.extensions.toList
+import javax.inject.Inject
 
 
-interface AudioFileManager {
+interface AudioFileRepository {
 
     suspend fun findAll(): List<AudioData>
 }
 
-class AudioFileManagerImpl(private val context: Context) : AudioFileManager {
+class AudioFileRepositoryImpl @Inject constructor(
+        private val context: Context
+) : AudioFileRepository {
 
     companion object {
 
