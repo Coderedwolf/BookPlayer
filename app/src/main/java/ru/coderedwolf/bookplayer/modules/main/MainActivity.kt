@@ -1,8 +1,6 @@
 package ru.coderedwolf.bookplayer.modules.main
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.core.view.GravityCompat
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import ru.coderedwolf.bookplayer.BookPayerApplication
@@ -35,17 +33,6 @@ class MainActivity : RoutingMvpActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return false
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 
     override fun onBackPressed() {
         val fragment = findNowFragment()
