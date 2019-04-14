@@ -11,11 +11,16 @@ class BookSavePresenter @Inject constructor(
         private val router: Router
 ) : BasePresenter<BookSaveView>() {
 
-    private lateinit var mInitAudioData: AudioData
+    private val mFiles = LinkedHashSet<AudioData>()
 
     fun onViewCreated(audioData: AudioData) {
-        this.mInitAudioData = audioData
+        mFiles.add(audioData)
         viewState.showAudioInfo(audioData)
+    }
+
+    override fun attachView(view: BookSaveView?) {
+        super.attachView(view)
+        viewState.addFiles(mFiles.toList())
     }
 
     override fun onBackPressed() {
@@ -23,7 +28,7 @@ class BookSavePresenter @Inject constructor(
     }
 
     fun onClickAddFileButton() {
-
+        viewState.showSelectFileDialog(mFiles.map { it.id }.toSet())
     }
 
     fun onClickCancelButton() {
@@ -36,5 +41,14 @@ class BookSavePresenter @Inject constructor(
 
     fun onClickRemoveFile(audioFileItem: AudioFileItem) {
         viewState.removeFile(audioFileItem)
+    }
+
+    fun onClickChangeOrderButton() {
+
+    }
+
+    fun onFileSelected(files: List<AudioData>) {
+        this.mFiles.addAll(files)
+        viewState.addFiles(files)
     }
 }
