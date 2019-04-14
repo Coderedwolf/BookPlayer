@@ -35,7 +35,7 @@
                 android:layout_below="@id/progressBar"
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="right"
-                tools:itemCount="5"
+                tools:itemCount="3"
                 tools:listitem="@layout/item_file_list" />
 
             <ProgressBar

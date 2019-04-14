@@ -2,11 +2,9 @@ package ru.coderedwolf.bookplayer.modules.filelist
 
 import com.arellomobile.mvp.InjectViewState
 import com.github.florent37.runtimepermission.PermissionResult
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.coderedwolf.bookplayer.base.BasePresenter
-import ru.coderedwolf.bookplayer.managers.AudioFileManager
+import ru.coderedwolf.bookplayer.managers.AudioFileRepository
 import ru.coderedwolf.bookplayer.managers.PermissionManager
 import ru.coderedwolf.bookplayer.modules.BookSaveScreen
 import ru.coderedwolf.bookplayer.modules.SettingScreen
@@ -16,14 +14,9 @@ import javax.inject.Inject
 @InjectViewState
 class FileListPresenter @Inject constructor(
         private val router: Router,
-        private val audioFileManager: AudioFileManager,
+        private val audioFileRepository: AudioFileRepository,
         private val permissionManager: PermissionManager
 ) : BasePresenter<FileListView>() {
-
-    companion object {
-
-        private const val DELAY_HIDE = 1000L
-    }
 
     private var mGoToSetting = false
 
@@ -65,27 +58,21 @@ class FileListPresenter @Inject constructor(
         }
     }
 
-    private fun updateAudioList() {
-        launch {
-            viewState.showLoading()
-            val list = withContext(IO) { audioFileManager.findAll() }
-            viewState.showFileList(list)
-            delay(DELAY_HIDE)
-            viewState.hideLoading()
-        }
+    private fun updateAudioList() = launchUI {
+        viewState.showLoading()
+        val list = withContext(IO) { audioFileRepository.findAll() }
+        viewState.showFileList(list)
+        viewState.hideLoading()
     }
 
     fun onClickPermissionButton() {
         viewState.requestPermissionStorage()
     }
 
-    fun onRefreshList() {
-        launch {
-            val list = withContext(IO) { audioFileManager.findAll() }
-            viewState.showFileList(list)
-            delay(DELAY_HIDE)
-            viewState.hideSwipeLoading()
-        }
+    fun onRefreshList() = launchUI {
+        val list = withContext(IO) { audioFileRepository.findAll() }
+        viewState.showFileList(list)
+        viewState.hideSwipeLoading()
     }
 
     fun onClickFile(item: AudioDataItem) {

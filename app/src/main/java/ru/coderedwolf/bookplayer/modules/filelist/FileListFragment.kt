@@ -14,13 +14,12 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.fragment_file_list.*
 import org.jetbrains.anko.onClick
-import ru.coderedwolf.bookplayer.BookPayerApplication
 import ru.coderedwolf.bookplayer.R
-import ru.coderedwolf.bookplayer.base.MvpAppCompatFragment
 import ru.coderedwolf.bookplayer.domain.model.AudioData
+import ru.coderedwolf.bookplayer.modules.base.BaseMvpFragment
 import ru.coderedwolf.bookplayer.modules.common.BackButtonListener
 
-class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListener {
+class FileListFragment : BaseMvpFragment<FileListPresenter>(), FileListView, BackButtonListener {
 
     companion object {
 
@@ -29,18 +28,10 @@ class FileListFragment : MvpAppCompatFragment(), FileListView, BackButtonListene
         }
     }
 
-    @InjectPresenter
-    lateinit var mFileListPresenter: FileListPresenter
+    @InjectPresenter lateinit var mFileListPresenter: FileListPresenter
+    @ProvidePresenter fun presenter() = providePresenter()
 
     private val mAudioDataAdapter = GroupAdapter<ViewHolder>()
-
-    @ProvidePresenter
-    fun provideBookListPresenter(): FileListPresenter {
-        return DaggerFileListComponent.builder()
-                .appComponent(BookPayerApplication.component)
-                .build()
-                .providePresenter()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_file_list, container, false)
