@@ -3,7 +3,6 @@ package ru.coderedwolf.bookplayer.modules.main
 import com.arellomobile.mvp.InjectViewState
 import ru.coderedwolf.bookplayer.base.BasePresenter
 import ru.coderedwolf.bookplayer.modules.BookListScreen
-import ru.iway.iwayapp.di.scope.LifeTimeScope
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 

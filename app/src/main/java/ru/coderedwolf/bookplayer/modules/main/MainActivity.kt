@@ -3,31 +3,20 @@ package ru.coderedwolf.bookplayer.modules.main
 import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import ru.coderedwolf.bookplayer.BookPayerApplication
 import ru.coderedwolf.bookplayer.R
+import ru.coderedwolf.bookplayer.modules.base.RoutingMvpActivity
 import ru.coderedwolf.bookplayer.modules.common.BackButtonListener
-import ru.coderedwolf.bookplayer.modules.common.RoutingMvpActivity
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 
-class MainActivity : RoutingMvpActivity(), MainView {
+class MainActivity : RoutingMvpActivity<MainPresenter>(), MainView {
 
     private val mNavigator = SupportAppNavigator(this, supportFragmentManager, R.id.fragmentContainer)
 
     override fun getNavigator() = mNavigator
 
-    override fun getNavigationHolder() = BookPayerApplication.component.navigatorHolder()
-
-    @InjectPresenter
-    lateinit var mMainPresenter: MainPresenter
-
-    @ProvidePresenter
-    fun provideMainPresenter(): MainPresenter {
-        return DaggerMainComponent.builder()
-            .appComponent(BookPayerApplication.component)
-            .build()
-            .providePresenter()
-    }
+    @InjectPresenter lateinit var mMainPresenter: MainPresenter
+    @ProvidePresenter fun presenter() = providePresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
